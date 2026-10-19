@@ -19,9 +19,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 40,
-            marginBottom: 50,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
+            gap: 'clamp(24px, 4vw, 40px)',
+            marginBottom: 40,
           }}
         >
           {/* Brand Col */}

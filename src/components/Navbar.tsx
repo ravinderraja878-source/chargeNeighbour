@@ -140,7 +140,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="hide-on-mobile">{isLiveSupabase ? 'Cloud DB' : 'Local Storage'}</span>
             </button>
 
-            {/* If logged in */}
+            {/* Desktop User Actions */}
             {currentUser ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, position: 'relative' }}>
                 {/* Notifications Bell */}
@@ -183,7 +183,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         position: 'absolute',
                         top: 48,
                         right: 0,
-                        width: 320,
+                        width: 'min(320px, calc(100vw - 32px))',
                         background: '#ffffff',
                         borderRadius: 'var(--radius-md)',
                         boxShadow: 'var(--shadow-lg)',
@@ -232,56 +232,58 @@ export const Navbar: React.FC<NavbarProps> = ({
                   )}
                 </div>
 
-                {/* Dashboard Shortcut */}
-                {currentUser.role === 'owner' ? (
-                  <>
-                    <button
-                      type="button"
-                      className="btn btn-navy btn-sm"
-                      onClick={() => onNavigate('/owner/dashboard')}
-                    >
-                      <MapPin size={15} /> Find Chargers
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary btn-sm"
-                      onClick={() => onNavigate('/owner/bookings')}
-                    >
-                      <Calendar size={15} /> Bookings
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      type="button"
-                      className="btn btn-navy btn-sm"
-                      onClick={() => onNavigate('/provider/dashboard')}
-                    >
-                      Provider Dashboard
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-sm"
-                      onClick={() => onNavigate('/provider/register-charger')}
-                    >
-                      <PlusCircle size={15} /> Add Charger
-                    </button>
-                  </>
-                )}
+                {/* Desktop Buttons */}
+                <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  {currentUser.role === 'owner' ? (
+                    <>
+                      <button
+                        type="button"
+                        className="btn btn-navy btn-sm"
+                        onClick={() => onNavigate('/owner/dashboard')}
+                      >
+                        <MapPin size={15} /> Find Chargers
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => onNavigate('/owner/bookings')}
+                      >
+                        <Calendar size={15} /> Bookings
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="btn btn-navy btn-sm"
+                        onClick={() => onNavigate('/provider/dashboard')}
+                      >
+                        Provider Dashboard
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary btn-sm"
+                        onClick={() => onNavigate('/provider/register-charger')}
+                      >
+                        <PlusCircle size={15} /> Add Charger
+                      </button>
+                    </>
+                  )}
 
-                {/* Logout Button */}
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-icon"
-                  onClick={onLogout}
-                  title="Logout"
-                >
-                  <LogOut size={16} />
-                </button>
+                  {/* Logout Button */}
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-icon"
+                    onClick={onLogout}
+                    title="Logout"
+                  >
+                    <LogOut size={16} />
+                  </button>
+                </div>
               </div>
             ) : (
               /* If Logged Out */
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
@@ -299,18 +301,189 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             )}
 
-            {/* Mobile menu trigger */}
+            {/* Mobile menu trigger button */}
             <button
               type="button"
-              className="btn btn-secondary btn-icon"
-              style={{ display: 'none' }}
+              className="btn btn-secondary btn-icon mobile-only"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Navigation Drawer */}
+      {mobileMenuOpen && (
+        <>
+          <div className="mobile-nav-backdrop" onClick={() => setMobileMenuOpen(false)} />
+          <nav className="mobile-nav-drawer">
+            {currentUser && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '10px 14px',
+                  background: 'var(--bg-app)',
+                  borderRadius: 'var(--radius-sm)',
+                  marginBottom: 6,
+                }}
+              >
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.92rem', color: 'var(--navy-900)' }}>
+                    {currentUser.full_name}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    {currentUser.email}
+                  </div>
+                </div>
+                <span className={currentUser.role === 'owner' ? 'badge badge-green' : 'badge badge-navy'}>
+                  {currentUser.role === 'owner' ? 'EV Driver' : 'Charging Host'}
+                </span>
+              </div>
+            )}
+
+            <button
+              type="button"
+              className={`mobile-nav-item ${currentRoute === '/' ? 'active' : ''}`}
+              onClick={() => {
+                onNavigate('/');
+                setMobileMenuOpen(false);
+              }}
+            >
+              <Zap size={18} color="var(--green-500)" />
+              <span>Home</span>
+            </button>
+
+            <button
+              type="button"
+              className={`mobile-nav-item ${currentRoute === '/owner/dashboard' ? 'active' : ''}`}
+              onClick={() => {
+                onNavigate('/owner/dashboard');
+                setMobileMenuOpen(false);
+              }}
+            >
+              <MapPin size={18} color="var(--blue-500)" />
+              <span>Find Community Chargers</span>
+            </button>
+
+            <button
+              type="button"
+              className="mobile-nav-item"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (currentRoute === '/') {
+                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  onNavigate('/#how-it-works');
+                }
+              }}
+            >
+              <CheckCircle size={18} color="var(--green-600)" />
+              <span>How It Works</span>
+            </button>
+
+            <button
+              type="button"
+              className={`mobile-nav-item ${currentRoute === '/provider/register' ? 'active' : ''}`}
+              onClick={() => {
+                onNavigate('/provider/register');
+                setMobileMenuOpen(false);
+              }}
+            >
+              <PlusCircle size={18} color="var(--amber-500)" />
+              <span>Become a Charging Host</span>
+            </button>
+
+            <hr style={{ border: 'none', borderTop: '1px solid var(--border-light)', margin: '4px 0' }} />
+
+            {/* Role specific or Login options in mobile menu */}
+            {currentUser ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}>
+                {currentUser.role === 'owner' ? (
+                  <>
+                    <button
+                      type="button"
+                      className="btn btn-navy"
+                      style={{ width: '100%', justifyContent: 'flex-start' }}
+                      onClick={() => {
+                        onNavigate('/owner/bookings');
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      <Calendar size={16} /> My Reserved Bookings
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="btn btn-navy"
+                      style={{ width: '100%', justifyContent: 'flex-start' }}
+                      onClick={() => {
+                        onNavigate('/provider/dashboard');
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      <Zap size={16} /> Host Dashboard
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ width: '100%', justifyContent: 'flex-start' }}
+                      onClick={() => {
+                        onNavigate('/provider/register-charger');
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      <PlusCircle size={16} /> Add New Charger
+                    </button>
+                  </>
+                )}
+
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--red-600)' }}
+                  onClick={() => {
+                    onLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <LogOut size={16} /> Log Out
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                  onClick={() => {
+                    onNavigate('/owner/login');
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <User size={16} /> EV Driver Login / Sign Up
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                  onClick={() => {
+                    onNavigate('/provider/login');
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Charging Host Login ⚡
+                </button>
+              </div>
+            )}
+          </nav>
+        </>
+      )}
 
       {/* Supabase & Deployment Config Modal */}
       {showConfigModal && (

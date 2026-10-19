@@ -139,7 +139,7 @@ export const ProviderDashboard: React.FC<ProviderDashboardProps> = ({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))',
             gap: 16,
             marginBottom: 32,
           }}
@@ -186,7 +186,7 @@ export const ProviderDashboard: React.FC<ProviderDashboardProps> = ({
         </div>
 
         {/* TAB TOGGLES */}
-        <div style={{ display: 'flex', gap: 10, marginBottom: 24, borderBottom: '1px solid var(--border-light)', paddingBottom: 12 }}>
+        <div className="scrollable-tabs" style={{ marginBottom: 24, borderBottom: '1px solid var(--border-light)' }}>
           <button
             type="button"
             className={`btn btn-sm ${activeTab === 'bookings' ? 'btn-navy' : 'btn-secondary'}`}
@@ -286,8 +286,8 @@ export const ProviderDashboard: React.FC<ProviderDashboardProps> = ({
                         </div>
 
                         {/* Financial and Actions */}
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
-                          <div style={{ textAlign: 'right' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10, flex: '1 1 auto', minWidth: 'min(100%, 180px)' }}>
+                          <div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Estimated Payout</div>
                             <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--green-600)' }}>
                               ₹{b.estimated_cost.toFixed(2)}

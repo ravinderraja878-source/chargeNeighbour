@@ -171,7 +171,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             borderTopRightRadius: 'var(--radius-lg)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0, overflow: 'hidden' }}>
             <div
               style={{
                 width: 32,
@@ -182,15 +182,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'var(--green-glow)',
+                flexShrink: 0,
               }}
             >
               <Zap size={18} />
             </div>
-            <div>
-              <h3 style={{ color: '#ffffff', fontSize: '1.1rem', margin: 0 }}>
+            <div style={{ minWidth: 0, overflow: 'hidden' }}>
+              <h3 style={{ color: '#ffffff', fontSize: '1.05rem', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {step === 7 ? 'Booking Confirmed! ⚡' : `Reserve Slot: ${charger.charger_name}`}
               </h3>
-              <p style={{ margin: 0, fontSize: '0.8rem', color: '#94a3b8' }}>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {step === 7 ? 'Your charging slot is locked and secured' : `Step ${step} of 6 • ${charger.city}, ${charger.state}`}
               </p>
             </div>
@@ -206,6 +207,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               justifyContent: 'center',
               padding: 6,
               borderRadius: '50%',
+              flexShrink: 0,
             }}
           >
             <X size={20} />
@@ -245,7 +247,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 Select when you plan to arrive at {charger.charger_name}.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 20 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 85px), 1fr))', gap: 8, marginBottom: 20 }}>
                 {[0, 1, 2].map((offset) => {
                   const d = new Date();
                   d.setDate(d.getDate() + offset);
@@ -259,7 +261,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       type="button"
                       onClick={() => setSelectedDate(dateStr)}
                       style={{
-                        padding: '14px 10px',
+                        padding: '12px 6px',
                         borderRadius: 'var(--radius-sm)',
                         border: isSelected ? '2px solid var(--green-500)' : '1px solid var(--border-light)',
                         background: isSelected ? 'var(--green-50)' : '#ffffff',
@@ -268,10 +270,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                         transition: 'all 0.2s',
                       }}
                     >
-                      <div style={{ fontSize: '0.85rem', fontWeight: 600, color: isSelected ? 'var(--green-600)' : 'var(--navy-900)' }}>
+                      <div style={{ fontSize: '0.82rem', fontWeight: 600, color: isSelected ? 'var(--green-600)' : 'var(--navy-900)' }}>
                         {label}
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 2 }}>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 2 }}>
                         {dateStr}
                       </div>
                     </button>
@@ -318,7 +320,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   Checking slot availability...
                 </div>
               ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 10, maxHeight: '240px', overflowY: 'auto', padding: '4px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 110px), 1fr))', gap: 8, maxHeight: '240px', overflowY: 'auto', padding: '4px' }}>
                   {availableSlots.map(({ slot, available }) => {
                     const isSelected = selectedSlot === slot;
                     return (

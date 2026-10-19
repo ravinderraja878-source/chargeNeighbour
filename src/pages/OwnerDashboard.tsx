@@ -342,8 +342,8 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
             </div>
 
             {/* Battery Slider Input */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: '240px' }}>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Update:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: '1 1 240px', minWidth: 'min(100%, 220px)', maxWidth: '100%' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>Update:</span>
               <input
                 type="range"
                 min="1"
@@ -352,6 +352,7 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
                 onChange={(e) => setBatteryPct(Number(e.target.value))}
                 style={{
                   flex: 1,
+                  minWidth: '60px',
                   accentColor: batteryPct <= 4 ? '#ef4444' : batteryPct <= 10 ? '#f59e0b' : '#10b981',
                   cursor: 'pointer',
                 }}
@@ -363,8 +364,8 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
                 value={batteryPct}
                 onChange={(e) => setBatteryPct(Number(e.target.value))}
                 style={{
-                  width: '56px',
-                  padding: '6px 8px',
+                  width: '52px',
+                  padding: '6px 4px',
                   borderRadius: '6px',
                   border: '1px solid var(--border-medium)',
                   fontWeight: 700,
@@ -438,12 +439,12 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
         <div
           className="card"
           style={{
-            padding: '18px 24px',
+            padding: '16px 20px',
             marginBottom: 24,
             background: '#ffffff',
           }}
         >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))', gap: 12, alignItems: 'center' }}>
             {/* Search Input */}
             <div style={{ position: 'relative' }}>
               <Search size={18} style={{ position: 'absolute', top: 13, left: 14, color: 'var(--text-light)' }} />
@@ -515,35 +516,36 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
               borderTop: '1px solid var(--border-light)',
               fontSize: '0.82rem',
               color: 'var(--text-secondary)',
+              gap: 10,
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <MapPin size={15} color="var(--green-600)" />
-              <span><b>Current Center:</b> {geoStatus}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1, minWidth: 'min(100%, 260px)' }}>
+              <MapPin size={15} color="var(--green-600)" style={{ flexShrink: 0 }} />
+              <span style={{ wordBreak: 'break-word' }}><b>Current Center:</b> {geoStatus}</span>
             </div>
 
-            {/* View Mode Toggle */}
-            <div style={{ display: 'flex', gap: 6 }}>
+            {/* View Mode Segmented Toggle */}
+            <div className="segmented-toggle">
               <button
                 type="button"
                 className={`btn btn-sm ${viewMode === 'split' ? 'btn-navy' : 'btn-secondary'}`}
                 onClick={() => setViewMode('split')}
               >
-                <Layers size={14} /> Split View
+                <Layers size={14} /> <span>Split</span>
               </button>
               <button
                 type="button"
                 className={`btn btn-sm ${viewMode === 'map' ? 'btn-navy' : 'btn-secondary'}`}
                 onClick={() => setViewMode('map')}
               >
-                <Map size={14} /> Map Only
+                <Map size={14} /> <span>Map</span>
               </button>
               <button
                 type="button"
                 className={`btn btn-sm ${viewMode === 'list' ? 'btn-navy' : 'btn-secondary'}`}
                 onClick={() => setViewMode('list')}
               >
-                <List size={14} /> List Only
+                <List size={14} /> <span>List</span>
               </button>
             </div>
           </div>
@@ -551,12 +553,10 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
 
         {/* MAIN RESULTS DISPLAY */}
         <div
+          className={viewMode === 'split' ? 'dashboard-split-layout' : ''}
           style={{
             display: 'grid',
-            gridTemplateColumns:
-              viewMode === 'split'
-                ? 'minmax(340px, 1fr) minmax(340px, 1.2fr)'
-                : '1fr',
+            gridTemplateColumns: viewMode === 'split' ? undefined : '1fr',
             gap: 24,
             alignItems: 'start',
           }}
@@ -673,10 +673,12 @@ export const OwnerDashboard: React.FC<OwnerDashboardProps> = ({
                       <div
                         style={{
                           display: 'flex',
+                          flexWrap: 'wrap',
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           paddingTop: 10,
                           borderTop: '1px solid var(--border-light)',
+                          gap: 8,
                         }}
                       >
                         <div>

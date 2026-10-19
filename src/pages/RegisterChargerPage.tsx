@@ -229,7 +229,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
               1. Host & Property Information
             </h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Host Name *</label>
                 <input
@@ -267,7 +267,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
                     <span style={{ fontSize: '1.1rem' }}>🇮🇳</span>
                     <span>+91</span>
                   </div>
-                  <div style={{ position: 'relative', flex: 1 }}>
+                  <div style={{ position: 'relative', flex: 1, minWidth: 0 }}>
                     <input
                       type="tel"
                       className="form-input"
@@ -315,7 +315,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 12 }}>
+            <div className="form-grid-city-state-zip">
               <div className="form-group">
                 <label className="form-label">City *</label>
                 <input
@@ -370,7 +370,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Current Standard</label>
                 <select
@@ -399,7 +399,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Maximum Charging Power (kW) *</label>
                 <input
@@ -427,7 +427,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Pricing Model</label>
                 <select
@@ -548,7 +548,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Latitude</label>
                 <input
@@ -586,7 +586,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
                   type="checkbox"
                   checked={isAuthorized}
                   onChange={(e) => setIsAuthorized(e.target.checked)}
-                  style={{ width: 18, height: 18, marginTop: 2, accentColor: 'var(--green-500)' }}
+                  style={{ width: 18, height: 18, marginTop: 2, accentColor: 'var(--green-500)', flexShrink: 0 }}
                 />
                 <span>
                   <b>Property Authorization:</b> I confirm that I am the legal owner or authorized tenant of the specified property with full permission to host electric vehicle charging.
@@ -598,7 +598,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
                   type="checkbox"
                   checked={hasSafetyCheck}
                   onChange={(e) => setHasSafetyCheck(e.target.checked)}
-                  style={{ width: 18, height: 18, marginTop: 2, accentColor: 'var(--green-500)' }}
+                  style={{ width: 18, height: 18, marginTop: 2, accentColor: 'var(--green-500)', flexShrink: 0 }}
                 />
                 <span>
                   <b>Equipment Safety Check:</b> The charging unit and electrical breaker have been installed by a qualified electrician or verified functional without wiring damage.
@@ -611,10 +611,11 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
           </div>
 
           {/* Submit Action */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, flexWrap: 'wrap' }}>
             <button
               type="button"
               className="btn btn-secondary btn-lg"
+              style={{ flex: 1, minWidth: '130px' }}
               onClick={() => onNavigate('/provider/dashboard')}
             >
               Cancel
@@ -622,6 +623,7 @@ export const RegisterChargerPage: React.FC<RegisterChargerPageProps> = ({
             <button
               type="submit"
               className="btn btn-primary btn-lg"
+              style={{ flex: 2, minWidth: '220px' }}
               disabled={loading}
             >
               {loading ? 'Publishing Station...' : 'Publish Charging Station ⚡'}

@@ -116,7 +116,7 @@ export const OwnerBookingsPage: React.FC<OwnerBookingsPageProps> = ({
         </div>
 
         {/* Tab Filters */}
-        <div style={{ display: 'flex', gap: 10, marginBottom: 24, borderBottom: '1px solid var(--border-light)', paddingBottom: 12 }}>
+        <div className="scrollable-tabs" style={{ marginBottom: 24, borderBottom: '1px solid var(--border-light)' }}>
           <button
             type="button"
             className={`btn btn-sm ${filterTab === 'all' ? 'btn-navy' : 'btn-secondary'}`}
@@ -227,15 +227,15 @@ export const OwnerBookingsPage: React.FC<OwnerBookingsPageProps> = ({
                     </div>
 
                     {/* Actions & Navigation */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
-                      <div style={{ textAlign: 'right' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10, flex: '1 1 auto', minWidth: 'min(100%, 200px)' }}>
+                      <div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Estimated Cost</div>
                         <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--green-600)' }}>
                           ₹{b.estimated_cost.toFixed(2)}
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, width: '100%' }}>
                         {/* Direct Google Maps Navigation Button */}
                         {(isConfirmed || isInProgress) && (
                           <a

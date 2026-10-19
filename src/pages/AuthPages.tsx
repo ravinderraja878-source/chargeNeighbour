@@ -366,7 +366,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 10 }}>
+                <div className="form-grid-city-state-zip">
                   <div className="form-group">
                     <label className="form-label">City *</label>
                     <input

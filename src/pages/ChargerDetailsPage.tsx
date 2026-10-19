@@ -117,8 +117,8 @@ export const ChargerDetailsPage: React.FC<ChargerDetailsPageProps> = ({
           </div>
 
           {/* Quick Book CTA on top */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
-            <div style={{ textAlign: 'right' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 8, flex: '1 1 auto', minWidth: '180px' }}>
+            <div>
               <span style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--green-600)' }}>
                 ₹{charger.price.toFixed(2)}
               </span>
@@ -138,15 +138,8 @@ export const ChargerDetailsPage: React.FC<ChargerDetailsPageProps> = ({
         </div>
 
         {/* PHOTO GALLERY */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: photos.length > 1 ? '2.5fr 1fr' : '1fr',
-            gap: 16,
-            marginBottom: 36,
-          }}
-        >
-          <div style={{ position: 'relative', height: 380, borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
+        <div className="gallery-responsive">
+          <div style={{ position: 'relative', height: 'clamp(240px, 40vw, 380px)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
             <img
               src={photos[activePhotoIndex]}
               alt={charger.charger_name}
@@ -155,13 +148,14 @@ export const ChargerDetailsPage: React.FC<ChargerDetailsPageProps> = ({
           </div>
 
           {photos.length > 1 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: 10, overflowX: 'auto', paddingBottom: 4 }}>
               {photos.map((p, idx) => (
                 <div
                   key={idx}
                   onClick={() => setActivePhotoIndex(idx)}
                   style={{
-                    height: 115,
+                    flex: '1 0 100px',
+                    height: 100,
                     borderRadius: 'var(--radius-sm)',
                     overflow: 'hidden',
                     cursor: 'pointer',
@@ -177,7 +171,7 @@ export const ChargerDetailsPage: React.FC<ChargerDetailsPageProps> = ({
         </div>
 
         {/* TWO-COLUMN DETAILS & LOCATION */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 24 }}>
           {/* LEFT: SPECS & HOST RULES */}
           <div>
             <div className="card" style={{ padding: 24, marginBottom: 24 }}>
@@ -186,7 +180,7 @@ export const ChargerDetailsPage: React.FC<ChargerDetailsPageProps> = ({
                 Station Specifications
               </h3>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <div className="form-grid-2">
                 <div style={{ background: 'var(--bg-app)', padding: 12, borderRadius: 8 }}>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Charging Speed</div>
                   <div style={{ fontWeight: 700, fontSize: '1.05rem', color: 'var(--navy-900)' }}>
@@ -278,7 +272,7 @@ export const ChargerDetailsPage: React.FC<ChargerDetailsPageProps> = ({
 
           {/* RIGHT: MAP & NAVIGATION */}
           <div>
-            <div className="card" style={{ padding: 24, position: 'sticky', top: 90 }}>
+            <div className="card dashboard-map-sticky" style={{ padding: 24 }}>
               <h3 style={{ fontSize: '1.25rem', marginBottom: 12 }}>Location & Google Directions</h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: 16 }}>
                 Exact geographic coordinates: <code>{charger.latitude.toFixed(4)}, {charger.longitude.toFixed(4)}</code>

@@ -66,11 +66,11 @@ export const HomePage: React.FC<HomePageProps> = ({
               title="Click to search urgent nearby chargers"
             >
               <div className="alert-dot" />
-              <BatteryWarning size={18} color="var(--red-500)" />
-              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--navy-900)' }}>
+              <BatteryWarning size={18} color="var(--red-500)" style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: 'clamp(0.78rem, 2.5vw, 0.9rem)', fontWeight: 700, color: 'var(--navy-900)' }}>
                 Battery at 4%? Find a nearby charger before it's too late.
               </span>
-              <span style={{ fontSize: '0.8rem', color: 'var(--red-600)', fontWeight: 800 }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--red-600)', fontWeight: 800, whiteSpace: 'nowrap' }}>
                 Find Now →
               </span>
             </div>
@@ -78,7 +78,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Main Heading */}
             <h1
               style={{
-                fontSize: 'clamp(2.4rem, 5.5vw, 3.8rem)',
+                fontSize: 'clamp(1.9rem, 5.5vw, 3.8rem)',
                 fontWeight: 800,
                 color: 'var(--navy-900)',
                 letterSpacing: '-0.035em',
@@ -180,8 +180,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 30,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
+              gap: 24,
             }}
           >
             {/* Step 1 */}
@@ -292,7 +292,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: 24,
             }}
           >
@@ -399,7 +399,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* BENEFITS SECTION */}
       <section style={{ padding: '80px 0', background: '#ffffff', borderTop: '1px solid var(--border-light)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 50, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 36, alignItems: 'center' }}>
             <div>
               <span className="badge badge-green" style={{ marginBottom: 12 }}>
                 For EV Drivers
@@ -456,7 +456,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 background: 'linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%)',
                 color: '#ffffff',
                 borderRadius: 'var(--radius-lg)',
-                padding: '40px 32px',
+                padding: 'clamp(24px, 5vw, 40px) clamp(16px, 4vw, 32px)',
                 boxShadow: 'var(--shadow-lg)',
               }}
             >

@@ -445,11 +445,41 @@ export const ChargerMap: React.FC<ChargerMapProps> = ({
     }
   }, [mapEngine, chargers, isPickerMode, userLat, userLng, pickedLat, pickedLng, radiusKm, centerLat, centerLng, zoom, onPickLocation, onSelectCharger]);
 
+  // Handle container resizing & orientation changes for smooth map tiles rendering
+  useEffect(() => {
+    const handleResize = () => {
+      if (leafletMapRef.current) {
+        leafletMapRef.current.invalidateSize();
+      }
+      if (gMapRef.current && window.google?.maps?.event) {
+        window.google.maps.event.trigger(gMapRef.current, 'resize');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (mapContainerRef.current && typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        handleResize();
+      });
+      resizeObserver.observe(mapContainerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, [mapEngine]);
+
   return (
     <div
       style={{
         position: 'relative',
         width: '100%',
+        maxWidth: '100%',
         height: height,
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
